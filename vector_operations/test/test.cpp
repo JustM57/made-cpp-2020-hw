@@ -86,7 +86,7 @@ int main() {
         a * b;
         a % b;
         a || b;
-//        a && b;
+        a && b;
     }
 
     {
@@ -178,61 +178,61 @@ int main() {
         ASSERT_TRUE_MSG(fabs(cross * cross - vec[2] * vec[2] * vec2[0] * vec2[0]) < EPS, "Cross product")
     }
 
-//    REPEAT(100)
-//    {
-//        std::vector<double> vec, vec2;
-//        RandomFillDouble(vec, 1000);
-//
-//        auto mult = RandomDouble();
-//
-//        for (auto& item : vec) {
-//            vec2.push_back(item * mult);
-//        }
-//
-//        ASSERT_TRUE_MSG(vec || vec2, "Collinearity operator")
-//        ASSERT_TRUE_MSG((vec && vec2) == (mult > 0), "Codirectionality operator")
-//
-//
-//        size_t start_index = RandomUInt(vec2.size() / 2);
-//        for (size_t i = start_index; i < start_index + vec.size() / 2; ++i) {
-//            vec2[i] *= 3.;
-//        }
-//
-//        ASSERT_TRUE_MSG(!(vec || vec2), "Collinearity operator")
-//        ASSERT_TRUE_MSG(!(vec && vec2), "Codirectionality operator")
-//    }
-//
-//    REPEAT(100)
-//    {
-//        std::vector<double> vec, vec2;
-//        RandomFillDouble(vec, 1000);
-//        RandomFillDouble(vec2, 1000);
-//
-//        std::stringstream stream;
-//        stream << vec.size() << '\n';
-//        stream << vec;
-//
-//        ASSERT_TRUE_MSG(*(stream.str().end() - 1) == '\n', "Stream output operator")
-//
-//        stream >> vec2;
-//        ASSERT_TRUE(vec.size() == vec2.size())
-//
-//        for (size_t i = 0; i < vec.size(); ++i) {
-//            ASSERT_TRUE_MSG(fabs(vec[i] - vec2[i]) < 1e-2, "Stream input operator")
-//        }
-//
-//        stream << vec << vec2;
-//        stream.str("0 0");
-//        stream >> vec >> vec2;
-//
-//        ASSERT_TRUE_MSG(vec.empty() && vec2.empty(), "Stream input operator")
-//
-//        RandomFillDouble(vec2, RandomUInt(800, 1000));
-//        vec = vec2;
-//        reverse(vec);
-//        std::reverse(vec2.begin(), vec2.end());
-//
-//        ASSERT_EQUAL_MSG(vec, vec2, "reverse")
-//    }
+    REPEAT(100)
+    {
+        std::vector<double> vec, vec2;
+        RandomFillDouble(vec, 1000);
+
+        auto mult = RandomDouble();
+
+        for (auto& item : vec) {
+            vec2.push_back(item * mult);
+        }
+
+        ASSERT_TRUE_MSG(vec || vec2, "Collinearity operator")
+        ASSERT_TRUE_MSG((vec && vec2) == (mult > 0), "Codirectionality operator")
+
+
+        size_t start_index = RandomUInt(vec2.size() / 2);
+        for (size_t i = start_index; i < start_index + vec.size() / 2; ++i) {
+            vec2[i] *= 3.;
+        }
+
+        ASSERT_TRUE_MSG(!(vec || vec2), "Collinearity operator")
+        ASSERT_TRUE_MSG(!(vec && vec2), "Codirectionality operator")
+    }
+
+    REPEAT(100)
+    {
+        std::vector<double> vec, vec2;
+        RandomFillDouble(vec, 1000);
+        RandomFillDouble(vec2, 1000);
+
+        std::stringstream stream;
+        stream << vec.size() << '\n';
+        stream << vec;
+
+        ASSERT_TRUE_MSG(*(stream.str().end() - 1) == '\n', "Stream output operator")
+
+        stream >> vec2;
+        ASSERT_TRUE(vec.size() == vec2.size())
+
+        for (size_t i = 0; i < vec.size(); ++i) {
+            ASSERT_TRUE_MSG(fabs(vec[i] - vec2[i]) < 1e-2, "Stream input operator")
+        }
+
+        stream << vec << vec2;
+        stream.str("0 0");
+        stream >> vec >> vec2;
+
+        ASSERT_TRUE_MSG(vec.empty() && vec2.empty(), "Stream input operator")
+
+        RandomFillDouble(vec2, RandomUInt(800, 1000));
+        vec = vec2;
+        reverse(vec);
+        std::reverse(vec2.begin(), vec2.end());
+
+        ASSERT_EQUAL_MSG(vec, vec2, "reverse")
+    }
 
 }
