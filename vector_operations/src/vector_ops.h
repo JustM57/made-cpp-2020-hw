@@ -82,7 +82,7 @@ bool operator||(const std::vector<double> &first,
   bool set_alpha = false;
   for (size_t i = 0; i < first.size(); ++i) {
     if (std::abs(second[i]) < EPS) {
-      if (std::abs(second[i]) >= EPS)
+      if (std::abs(first[i]) >= EPS)
         return false;
     } else {
       new_alpha = first[i] / second[i];
