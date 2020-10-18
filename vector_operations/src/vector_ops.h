@@ -4,12 +4,13 @@
 #include <vector>
 
 namespace task {
+const EPS = 1e-12;
 
 std::vector<int> operator|(const std::vector<int> &first,
                            const std::vector<int> &second) {
-  std::vector<int> res;
+  std::vector<int> res(first.size());
   for (size_t i = 0; i < first.size(); ++i) {
-    res.push_back(first[i] | second[i]);
+    res[i] = (first[i] | second[i]);
   }
   return res;
 }
@@ -89,9 +90,7 @@ bool operator||(const std::vector<double> &first,
         alpha = new_alpha;
         set_alpha = true;
       }
-      if ((new_alpha / alpha - 1) > 1e-12)
-        return false;
-      if ((new_alpha / alpha - 1) < -1e-12)
+      if (std::abs(new_alpha / alpha - 1) < EPS)
         return false;
       if (new_alpha == 0.)
         return false;
@@ -102,10 +101,14 @@ bool operator||(const std::vector<double> &first,
 
 bool operator&&(const std::vector<double> &first,
                 const std::vector<double> &second) {
+  if (first.size() != second.size())
+    return false;
   size_t i = 0;
-  while (second[i] == 0.)
+  while ((i < second.size()) && (second[i] == 0.))
     ++i;
-  double alpha = first[i] / second[i];
+  double alpha = 0;
+  if (i < second.size())
+    alpha = first[i] / second[i];
   if ((alpha > 0) && (first || second))
     return true;
   return false;
